@@ -19,7 +19,7 @@ model Address {
   updatedAt  DateTime @default(now()) @db.Timestamp(0)
   city       City     @relation(fields: [cityId], references: [id])
 
-  @@index([cityId], name: "cityId")
+  @@index([cityId], name: "FK_addresses_cities")
   @@map("addresses")
 }
 

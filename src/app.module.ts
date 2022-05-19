@@ -5,9 +5,16 @@ import { CategoriesModule } from './categories/categories.module';
 import { CoinsModule } from './coins/coins.module';
 import { StatesModule } from './states/states.module';
 import { CitiesModule } from './cities/cities.module';
+import { AddressesModule } from './addresses/addresses.module';
 
 @Module({
-  imports: [CategoriesModule, CoinsModule, StatesModule, CitiesModule],
+  imports: [
+    CategoriesModule,
+    CoinsModule,
+    StatesModule,
+    CitiesModule,
+    AddressesModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
   exports: [],
