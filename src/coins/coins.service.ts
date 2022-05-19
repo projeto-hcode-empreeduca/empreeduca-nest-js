@@ -1,5 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from "@nestjs/common";
 import { DataBaseService } from "src/database/database.service";
+import { verifyDataObject } from "src/utils/verify-data-object";
 import { CoinsCreateDto } from "./dto/coins.create.dto";
 import { CoinsUpdateDto } from "./dto/coins.update.dto";
 
@@ -69,9 +70,7 @@ export class CoinsService {
             updateData.code = code;
         }
 
-        if (Object.entries(updateData).length === 0) {
-            throw new BadRequestException("Informe pelo menos um dado para atualização.");
-        }
+        verifyDataObject(updateData);
 
         return this.database.coin.update({
             data: updateData,
