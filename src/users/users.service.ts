@@ -14,6 +14,9 @@ export class UsersService {
             where: {
                 email,
             },
+            include: {
+                person: true,
+            },
         });
 
         return user;
