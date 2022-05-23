@@ -7,6 +7,6 @@ import { CoinsService } from "./coins.service";
     imports: [DataBaseModule],
     controllers: [CoinsController],
     providers: [CoinsService],
-    exports: [],
+    exports: [CoinsService],
 })
 export class CoinsModule {}

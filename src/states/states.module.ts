@@ -7,5 +7,6 @@ import { StatesService } from './states.service';
     imports: [DataBaseModule],
     controllers: [StatesController],
     providers: [StatesService],
+    exports: [StatesService],
 })
 export class StatesModule {}

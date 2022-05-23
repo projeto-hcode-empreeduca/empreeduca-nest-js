@@ -8,6 +8,9 @@ import { CitiesModule } from './cities/cities.module';
 import { AddressesModule } from './addresses/addresses.module';
 import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth.module';
+import { BranchesModule } from './branches/branches.module';
+import { RulesModule } from './rules/rules.module';
+import { EmployeesModule } from './employees/employees.module';
 
 @Module({
   imports: [
@@ -18,6 +21,9 @@ import { AuthModule } from './auth/auth.module';
     AddressesModule,
     UsersModule,
     AuthModule,
+    BranchesModule,
+    RulesModule,
+    EmployeesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
