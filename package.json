@@ -19,7 +19,13 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "prisma": "prisma generate"
+    "prisma": "prisma generate",
+    "migrate:up": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:run",
+    "postmigrate:up": "npm run prisma:generate",
+    "migrate:down": "ts-node --transpile-only ./node_modules/typeorm/cli.js migration:revert",
+    "postmigrate:down": "npm run prisma:generate",
+    "migrate:create": "typeorm migration:create",
+    "prisma:generate": "npx prisma generate"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
@@ -32,10 +38,11 @@
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "date-fns": "^2.28.0",
+    "mysql2": "^2.3.3",
     "passport-jwt": "^4.0.0",
-    "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
+    "typeorm": "^0.2.41",
     "webpack": "^5.72.1"
   },
   "devDependencies": {
