@@ -28,6 +28,7 @@
     "prisma:generate": "npx prisma generate"
   },
   "dependencies": {
+    "@nestjs-modules/mailer": "^1.6.1",
     "@nestjs/common": "^8.0.0",
     "@nestjs/core": "^8.0.0",
     "@nestjs/jwt": "^8.0.1",
@@ -39,7 +40,9 @@
     "class-validator": "^0.13.2",
     "date-fns": "^2.28.0",
     "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.5",
     "passport-jwt": "^4.0.0",
+    "pug": "^3.0.2",
     "rimraf": "^3.0.2",
     "rxjs": "^7.2.0",
     "typeorm": "^0.2.41",
