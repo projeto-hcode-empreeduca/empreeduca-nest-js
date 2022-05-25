@@ -60,20 +60,20 @@ model Coin {
 }
 
 model Employee {
-  id           Int            @id @default(autoincrement())
-  personId     Int            @db.UnsignedInt
-  salary       Decimal        @db.Decimal(10, 2)
-  totalSales   Int?
-  coinId       Int            @default(1) @db.UnsignedInt
-  ruleId       Int            @db.UnsignedInt
-  startAt      DateTime       @db.Date
-  endAt        DateTime?      @db.Date
-  cpf          String         @db.Char(11)
-  phone        String         @db.Char(13)
-  birthAt      DateTime       @db.Date
-  yearsOld     Int            @db.TinyInt
-  createdAt    DateTime       @default(now()) @db.Timestamp(0)
-  updatedAt    DateTime       @default(now()) @db.Timestamp(0)
+  id         Int       @id @default(autoincrement())
+  personId   Int       @db.UnsignedInt
+  salary     Decimal   @db.Decimal(10, 2)
+  totalSales Int?
+  coinId     Int       @default(1) @db.UnsignedInt
+  ruleId     Int       @db.UnsignedInt
+  startAt    DateTime  @db.Date
+  endAt      DateTime? @db.Date
+  cpf        String    @db.Char(11)
+  phone      String    @db.Char(13)
+  birthAt    DateTime  @db.Date
+  yearsOld   Int       @db.TinyInt
+  createdAt  DateTime  @default(now()) @db.Timestamp(0)
+  updatedAt  DateTime  @default(now()) @db.Timestamp(0)
 
   coin         Coin           @relation(fields: [coinId], references: [id])
   person       Person         @relation(fields: [personId], references: [id])
@@ -174,7 +174,8 @@ model User {
   personId       Int              @db.UnsignedInt
   branchId       Int?
   email          String           @unique @db.VarChar(45)
-  password       String           @db.VarChar(45)
+  password       String           @db.VarChar(255)
+  photo          String?          @db.VarChar(45)
   createdAt      DateTime         @default(now()) @db.Timestamp(0)
   updatedAt      DateTime         @default(now()) @db.Timestamp(0)
   branche        Branche?         @relation(fields: [branchId], references: [id])

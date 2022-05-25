@@ -32,11 +32,20 @@ export class AuthGuard implements CanActivate {
 
             const data = this.jwtService.decode(token) as AuthType;
 
+            request.auth = data;
+
             const user = await this.database.user.findUnique({
                 where: {
                     id: Number(data.id),
                 },
+                include: {
+                    person: true,
+                },
             });
+
+            delete user.password;
+
+            request.user = user;
 
             if (!user) {
                 throw new UnauthorizedException('Usuário não encontrado.');

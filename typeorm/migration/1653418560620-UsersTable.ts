@@ -26,7 +26,7 @@ export class UsersTable1653418560620 implements MigrationInterface {
           intColumn('personId'),
           intColumn('branchId'),
           { ...varcharColumn('email', '45'), isUnique: true },
-          varcharColumn('password', '45'),
+          varcharColumn('password', '255'),
           createdAtColumn,
           updatedAtColumn,
         ],

@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
+import { DataBaseModule } from 'src/database/database.module';
 import { MailModule } from 'src/mail/mail.module';
 import { UsersModule } from 'src/users/users.module';
 import { AuthController } from './auth.controller';
@@ -17,6 +18,7 @@ import { AuthService } from './auth.service';
     }),
     UsersModule,
     MailModule,
+    DataBaseModule,
   ],
   controllers: [AuthController],
   providers: [AuthService],

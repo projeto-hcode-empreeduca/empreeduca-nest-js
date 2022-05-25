@@ -6,19 +6,29 @@ import { MailService } from './mail.service';
 
 @Module({
   imports: [
-    MailerModule.forRoot({
-      transport: 'smtps://user@domain.com:pass@smtp.domain.com',
-      defaults: {
-        from: '"noreply" <noreply@hcode.com.br>',
-        subject: 'Email do sistema',
-      },
-      template: {
-        dir: __dirname + '/templates',
-        adapter: new PugAdapter(),
-        options: {
-          strict: true,
+    MailerModule.forRootAsync({
+      useFactory: () => ({
+        transport: {
+          host: 'smtp.gmail.com',
+          port: 587,
+          secure: false,
+          auth: {
+            user: 'hcodeempreeduca@gmail.com',
+            pass: 'ZAQ!XSW@CDE#',
+          },
         },
-      },
+        defaults: {
+          from: '"noreply" <noreply@hcode.com.br>',
+          subject: 'Email do sistema',
+        },
+        template: {
+          dir: __dirname + '/templates',
+          adapter: new PugAdapter(),
+          options: {
+            strict: true,
+          },
+        },
+      }),
     }),
   ],
   providers: [MailService],
