@@ -1,4 +1,5 @@
-import { Body, Controller, Patch, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Patch, Post, Put, Req, Res, Response, StreamableFile, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
 import { UsersService } from 'src/users/users.service';
@@ -47,4 +48,30 @@ export class AuthController {
   async changePassword(@Body() body: ChangePasswordDto, @Req() req) {
     return this.authService.changePassword(req.auth.id, body);
   }
+
+  @UseGuards(AuthGuard)
+  @UseInterceptors(
+    FileInterceptor('file', {
+      dest: './storage',
+      limits: {
+        fileSize: (1024 * 1024) * 5,
+      },
+    }),
+  )
+  @Put('photo')
+  async uploadPhoto(@UploadedFile() image: Express.Multer.File, @Req() req) {
+    return this.usersService.setPhoto(image, req.auth.id);
+  }
+
+  @UseGuards(AuthGuard)
+  @Get('photo')
+  async showPhoto(
+    @Req() req,
+    @Response({ passthrough: true, }) response,
+  ) {
+
+    return this.usersService.getPhoto(req.auth.id, response);
+
+  }
+
 }
