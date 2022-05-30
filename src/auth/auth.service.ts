@@ -1,4 +1,8 @@
-import { NotFoundException, BadRequestException, Injectable } from '@nestjs/common';
+import {
+  NotFoundException,
+  BadRequestException,
+  Injectable,
+} from '@nestjs/common';
 import { UsersService } from 'src/users/users.service';
 import { LoginDto } from './dto/login.dto';
 import * as bcrypt from 'bcrypt';
@@ -17,7 +21,6 @@ export class AuthService {
   ) {}
 
   async register(data: CreateUserDto) {
-
     const newUser = await this.usersService.create(data);
 
     return this.mailService.send({
@@ -28,7 +31,6 @@ export class AuthService {
         <p style="font-size: 14px;">Seu cadastro foi processado com sucesso!!!</p>
       `,
     });
-
   }
 
   async login({ email, password }: LoginDto) {
@@ -85,11 +87,7 @@ export class AuthService {
     });
   }
 
-  async resetPassword({
-    token,
-    password,
-  }: ResetPasswordDto) {
-
+  async resetPassword({ token, password }: ResetPasswordDto) {
     try {
       await this.jwtService.verify(token);
     } catch (error: any) {
@@ -114,19 +112,16 @@ export class AuthService {
         <p style="font-size: 17px;">Equipe Hcode</p>
       `,
     });
-
   }
 
-  async changePassword(id: number, {
-    currentPassword,
-    newPassword,
-    confirmPassword,
-  }: ChangePasswordDto) {
-
+  async changePassword(
+    id: number,
+    { currentPassword, newPassword, confirmPassword }: ChangePasswordDto,
+  ) {
     // 1 - Verificar se a senha atual está correta
     const user = await this.usersService.getById(id);
 
-    if (!await bcrypt.compare(currentPassword, user.password)) {
+    if (!(await bcrypt.compare(currentPassword, user.password))) {
       throw new BadRequestException('Senha incorreta.');
     }
 
@@ -136,12 +131,13 @@ export class AuthService {
     }
 
     // 3 - Atualizar a senha
-    const updatedUser = await this.usersService.updatePassword(user.id, newPassword);
+    const updatedUser = await this.usersService.updatePassword(
+      user.id,
+      newPassword,
+    );
 
     delete updatedUser.password;
 
     return updatedUser;
-
   }
-
 }

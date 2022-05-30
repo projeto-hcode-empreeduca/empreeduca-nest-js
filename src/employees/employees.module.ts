@@ -21,6 +21,6 @@ import { RulesModule } from 'src/rules/rules.module';
     RulesModule,
   ],
   controllers: [EmployeesController],
-  providers: [EmployeesService]
+  providers: [EmployeesService],
 })
 export class EmployeesModule {}

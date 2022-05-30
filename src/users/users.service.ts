@@ -1,11 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException, StreamableFile } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+  StreamableFile,
+} from '@nestjs/common';
 import { DataBaseService } from 'src/database/database.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { createReadStream, existsSync, renameSync, unlinkSync } from 'fs';
 import { join } from 'path';
-import { Response, response } from 'express';
+import { Response } from 'express';
 
 @Injectable()
 export class UsersService {
@@ -48,12 +53,7 @@ export class UsersService {
     });
   }
 
-  async update(id: number, {
-    email,
-    name,
-    branchId,
-  }: UpdateUserDto) {
-
+  async update(id: number, { email, name, branchId }: UpdateUserDto) {
     const user = await this.getById(id);
 
     const userEmail = await this.getByEmail(email);
@@ -87,13 +87,9 @@ export class UsersService {
     delete updatedUser.password;
 
     return updatedUser;
-
   }
 
-  async delete() {}
-
   async getById(id: number) {
-
     id = Number(id);
 
     const user = await this.database.user.findUnique({
@@ -107,11 +103,9 @@ export class UsersService {
     }
 
     return user;
-
   }
 
   async updatePassword(id: number, password: string) {
-
     await this.getById(id);
 
     const salt = bcrypt.genSaltSync(10);
@@ -127,11 +121,9 @@ export class UsersService {
         person: true,
       },
     });
-
   }
 
   getStoragePath(file: string) {
-
     if (!file) {
       throw new BadRequestException('O arquivo é obrigatório.');
     }
@@ -139,29 +131,23 @@ export class UsersService {
     const path = join(__dirname, '../', '../', '../', 'storage', file);
 
     return path;
-
   }
 
   async removePhoto(id: number) {
-
     const user = await this.getById(id);
 
     if (user.photo) {
-
       const currentPhoto = this.getStoragePath(user.photo);
 
       if (existsSync(currentPhoto)) {
         unlinkSync(currentPhoto);
       }
-
     }
 
     return user;
-
   }
 
   async setPhoto(file: Express.Multer.File, id: number) {
-
     const user = await this.removePhoto(id);
 
     let ext = '';
@@ -169,7 +155,7 @@ export class UsersService {
     switch (file.mimetype) {
       case 'image/png':
         ext = 'png';
-      break;
+        break;
 
       default:
         ext = 'jpg';
@@ -190,15 +176,12 @@ export class UsersService {
         id: user.id,
       },
     });
-
   }
 
   async getPhoto(id: number, response: Response) {
-
     const { photo } = await this.getById(id);
 
     if (photo) {
-
       const filePath = this.getStoragePath(photo);
 
       const file = createReadStream(filePath);
@@ -209,23 +192,20 @@ export class UsersService {
       switch (extension) {
         case 'png':
           mimetype = 'image/png';
-        break;
+          break;
 
         case 'jpg':
         case 'jpeg':
         default:
           mimetype = 'image/jpeg';
-        break;
+          break;
       }
 
       response.set({
         'Content-Type': mimetype,
       });
-  
+
       return new StreamableFile(file);
-
     }
-
   }
-
 }

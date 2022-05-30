@@ -1,4 +1,4 @@
 export class CreateStateDto {
-    name: string;
-    uf: string;
+  name: string;
+  uf: string;
 }

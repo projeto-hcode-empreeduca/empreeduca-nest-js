@@ -1,14 +1,16 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { differenceInYears } from 'date-fns';
 import { CoinsService } from 'src/coins/coins.service';
 import { DataBaseService } from 'src/database/database.service';
 import { RulesService } from 'src/rules/rules.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
 
 @Injectable()
 export class EmployeesService {
-
   constructor(
     private readonly database: DataBaseService,
     private coinsService: CoinsService,
@@ -25,7 +27,6 @@ export class EmployeesService {
     phone,
     startAt,
   }: CreateEmployeeDto) {
-
     await this.coinsService.getById(coinId);
     await this.rulesService.findOne(+ruleId);
 
@@ -70,7 +71,6 @@ export class EmployeesService {
         },
       },
     });
-
   }
 
   findAll() {
@@ -84,7 +84,6 @@ export class EmployeesService {
   }
 
   async findOne(id: number) {
-
     const employee = await this.database.employee.findUnique({
       where: {
         id,
@@ -101,15 +100,9 @@ export class EmployeesService {
     }
 
     return employee;
-
-  }
-
-  update(id: number, updateEmployeeDto: UpdateEmployeeDto) {
-    return `This action updates a #${id} employee`;
   }
 
   async remove(id: number) {
-    
     await this.findOne(id);
 
     return this.database.employee.delete({
@@ -117,6 +110,5 @@ export class EmployeesService {
         id,
       },
     });
-
   }
 }

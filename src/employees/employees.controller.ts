@@ -1,7 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UsePipes, ValidationPipe, ParseIntPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Delete,
+  UseGuards,
+  ParseIntPipe,
+} from '@nestjs/common';
 import { EmployeesService } from './employees.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 
 @Controller('employees')
@@ -24,12 +32,6 @@ export class EmployeesController {
   @Get(':id')
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.employeesService.findOne(id);
-  }
-
-  @UseGuards(AuthGuard)
-  @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateEmployeeDto: UpdateEmployeeDto) {
-    return this.employeesService.update(+id, updateEmployeeDto);
   }
 
   @UseGuards(AuthGuard)

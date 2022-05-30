@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  ParseIntPipe,
+  UseGuards,
+} from '@nestjs/common';
 import { RulesService } from './rules.service';
 import { CreateRuleDto } from './dto/create-rule.dto';
 import { UpdateRuleDto } from './dto/update-rule.dto';
@@ -28,7 +38,10 @@ export class RulesController {
 
   @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updateRuleDto: UpdateRuleDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updateRuleDto: UpdateRuleDto,
+  ) {
     return this.rulesService.update(+id, updateRuleDto);
   }
 

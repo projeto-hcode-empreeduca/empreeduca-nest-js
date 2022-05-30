@@ -4,9 +4,9 @@ import { StatesController } from './states.controller';
 import { StatesService } from './states.service';
 
 @Module({
-    imports: [DataBaseModule],
-    controllers: [StatesController],
-    providers: [StatesService],
-    exports: [StatesService],
+  imports: [DataBaseModule],
+  controllers: [StatesController],
+  providers: [StatesService],
+  exports: [StatesService],
 })
 export class StatesModule {}

@@ -1,11 +1,14 @@
-import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { DataBaseService } from 'src/database/database.service';
 import { CreateRuleDto } from './dto/create-rule.dto';
 import { UpdateRuleDto } from './dto/update-rule.dto';
 
 @Injectable()
 export class RulesService {
-
   constructor(private readonly database: DataBaseService) {}
 
   create(data: CreateRuleDto) {
@@ -19,7 +22,6 @@ export class RulesService {
   }
 
   async findOne(id: number) {
-    
     if (isNaN(id)) {
       throw new BadRequestException('Informe um ID válido.');
     }
@@ -35,11 +37,9 @@ export class RulesService {
     }
 
     return rule;
-
   }
 
   async update(id: number, updateRuleDto: UpdateRuleDto) {
-    
     await this.findOne(id);
 
     return this.database.rule.update({
@@ -48,11 +48,9 @@ export class RulesService {
         id,
       },
     });
-
   }
 
   async remove(id: number) {
-    
     await this.findOne(id);
 
     return this.database.rule.delete({
@@ -60,6 +58,5 @@ export class RulesService {
         id,
       },
     });
-
   }
 }

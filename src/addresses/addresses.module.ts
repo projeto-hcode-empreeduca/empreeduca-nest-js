@@ -19,6 +19,6 @@ import { AddressesService } from './addresses.service';
     CitiesModule,
   ],
   controllers: [AddressesController],
-  providers: [AddressesService]
+  providers: [AddressesService],
 })
 export class AddressesModule {}

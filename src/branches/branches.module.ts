@@ -19,6 +19,6 @@ import { StatesModule } from 'src/states/states.module';
     StatesModule,
   ],
   controllers: [BranchesController],
-  providers: [BranchesService]
+  providers: [BranchesService],
 })
 export class BranchesModule {}

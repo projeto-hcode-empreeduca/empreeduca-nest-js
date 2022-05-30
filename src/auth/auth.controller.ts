@@ -1,4 +1,16 @@
-import { Body, Controller, Get, Patch, Post, Put, Req, Res, Response, StreamableFile, UploadedFile, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Patch,
+  Post,
+  Put,
+  Req,
+  Response,
+  UploadedFile,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
 import { UpdateUserDto } from 'src/users/dto/update-user.dto';
@@ -31,7 +43,7 @@ export class AuthController {
   async forget(@Body() { email }: ForgetDto) {
     return this.authService.forget(email);
   }
-  
+
   @Post('reset-password')
   async resetPassword(@Body() body: ResetPasswordDto) {
     return this.authService.resetPassword(body);
@@ -54,7 +66,7 @@ export class AuthController {
     FileInterceptor('file', {
       dest: './storage',
       limits: {
-        fileSize: (1024 * 1024) * 5,
+        fileSize: 1024 * 1024 * 5,
       },
     }),
   )
@@ -65,13 +77,7 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Get('photo')
-  async showPhoto(
-    @Req() req,
-    @Response({ passthrough: true, }) response,
-  ) {
-
+  async showPhoto(@Req() req, @Response({ passthrough: true }) response) {
     return this.usersService.getPhoto(req.auth.id, response);
-
   }
-
 }
