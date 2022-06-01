@@ -13,11 +13,3 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_KEY}}
-
-      - name: Baixar alterações do GitHub
-
-      - name: Conferir se há atualizações no Banco de Dados
-
-      - name: Realizar o build
-
-      - name: Reiniciar o pm2
