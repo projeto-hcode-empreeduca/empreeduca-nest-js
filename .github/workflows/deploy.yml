@@ -17,7 +17,7 @@ jobs:
       - name: Baixar alterações do GitHub
         uses: joaohcrangel/github-action-ssh@release
         with:
-          command: cd /var/www/hcode-empreeduca-nest-js && sudo npm run git
+          command: cd /var/www/hcode-empreeduca-nest-js && sudo git fetch --all && sudo git reset --hard origin/master
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_KEY}}
