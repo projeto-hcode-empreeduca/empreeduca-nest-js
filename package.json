@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "git": "sudo git fetch --all && sudo git reset --hard origin/master",
     "prebuild": "rimraf dist && npm run format && npm run lint",
     "build": "nest build",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",

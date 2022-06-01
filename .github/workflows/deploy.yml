@@ -9,7 +9,39 @@ jobs:
       - name: Fazer o backup do arquivo .env
         uses: joaohcrangel/github-action-ssh@release
         with:
-          command: cd /var/www/hcode-empreeduca-nest-js && ls -a
+          command: cd /var/www/hcode-empreeduca-nest-js && sudo cp .env ../.env
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
+
+      - name: Baixar alterações do GitHub
+        uses: joaohcrangel/github-action-ssh@release
+        with:
+          command: cd /var/www/hcode-empreeduca-nest-js && sudo npm run git
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
+
+      - name: Conferir se há atualizações no Banco de Dados
+        uses: joaohcrangel/github-action-ssh@release
+        with:
+          command: cd /var/www/hcode-empreeduca-nest-js && sudo npm run migrate:up
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
+
+      - name: Realizar o build
+        uses: joaohcrangel/github-action-ssh@release
+        with:
+          command: cd /var/www/hcode-empreeduca-nest-js && sudo npm run build
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
+
+      - name: Reiniciar o pm2
+        uses: joaohcrangel/github-action-ssh@release
+        with:
+          command: cd /var/www/hcode-empreeduca-nest-js && pm2 restart nestjs
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_KEY}}
