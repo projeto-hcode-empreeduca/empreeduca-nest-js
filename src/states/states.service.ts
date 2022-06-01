@@ -13,7 +13,13 @@ export class StatesService {
   constructor(private db: DataBaseService) {}
 
   async listStates() {
-    return this.db.state.findMany();
+    return this.db.state.findMany({
+      select: {
+        id: true,
+        name: true,
+        uf: true,
+      },
+    });
   }
 
   async getById(id: number) {
