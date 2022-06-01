@@ -18,6 +18,7 @@ export class StatesService {
         id: true,
         name: true,
         uf: true,
+        country: true,
       },
     });
   }
