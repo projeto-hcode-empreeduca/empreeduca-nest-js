@@ -12,5 +12,4 @@ jobs:
           command: cd /var/www/hcode-empreeduca-nest-js && ls -a
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
-          passphrase: ${{ secrets.SSH_PASS }}
           privateKey: ${{ secrets.SSH_KEY}}
