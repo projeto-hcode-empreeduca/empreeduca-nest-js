@@ -10,6 +10,7 @@ import { intColumn } from '../utils/intColumn';
 import { personIdFkColumn } from '../utils/personIdFkColumn';
 import { updatedAtColumn } from '../utils/updatedAtColumn';
 import { varcharColumn } from '../utils/varcharColumn';
+import * as bcrypt from 'bcrypt';
 
 export class UsersTable1653418560620 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
@@ -53,8 +54,11 @@ export class UsersTable1653418560620 implements MigrationInterface {
       `INSERT INTO branches (id, name, stateId) VALUES (1, 'São Paulo', 25);`,
     );
 
+    const salt = bcrypt.genSaltSync(10);
+    const password = bcrypt.hashSync('123456', salt);
+
     await queryRunner.query(
-      `INSERT INTO users (id, personId, branchId, email, password) VALUES (1, 1, 1, 'joao@hcode.com.br', '123456');`,
+      `INSERT INTO users (id, personId, branchId, email, password) VALUES (1, 1, 1, 'joao@hcode.com.br', '${password}');`,
     );
   }
 
