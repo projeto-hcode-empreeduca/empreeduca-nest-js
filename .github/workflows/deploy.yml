@@ -1,0 +1,23 @@
+name: deploy
+on:
+  push:
+    branches: [ master ]
+jobs:  
+  deploy-nest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Fazer o backup do arquivo .env
+        uses: joaohcrangel/github-action-ssh@release
+        with:
+          command: cd /var/www/hcode-empreeduca-nest-js && ls -a
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
+
+      - name: Baixar alterações do GitHub
+
+      - name: Conferir se há atualizações no Banco de Dados
+
+      - name: Realizar o build
+
+      - name: Reiniciar o pm2
