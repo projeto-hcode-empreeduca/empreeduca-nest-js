@@ -49,7 +49,7 @@ jobs:
       - name: Reiniciar o pm2
         uses: joaohcrangel/github-action-ssh@release
         with:
-          command: cd /var/www/empreeduca-nest-js && pm2 restart nestjs
+          command: cd /var/www/empreeduca-nest-js && pm2 restart api-nestjs
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_KEY}}

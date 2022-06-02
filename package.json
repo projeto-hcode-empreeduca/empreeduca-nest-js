@@ -6,6 +6,7 @@
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
+    "deploy": "npm run build && git add . && git commit -m deploy && git push origin master",
     "git": "sudo git fetch --all && sudo git reset --hard origin/master",
     "prebuild": "rimraf dist && npm run format && npm run lint",
     "build": "nest build",
