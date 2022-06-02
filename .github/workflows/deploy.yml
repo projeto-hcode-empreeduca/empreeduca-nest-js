@@ -22,6 +22,14 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           privateKey: ${{ secrets.SSH_KEY}}
 
+      - name: Instalar módulos NPM
+        uses: joaohcrangel/github-action-ssh@release
+        with:
+          command: cd /var/www/hcode-empreeduca-nest-js && sudo npm install
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          privateKey: ${{ secrets.SSH_KEY}}
+
       - name: Conferir se há atualizações no Banco de Dados
         uses: joaohcrangel/github-action-ssh@release
         with:
